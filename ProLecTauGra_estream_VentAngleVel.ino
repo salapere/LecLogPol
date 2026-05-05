@@ -219,11 +219,11 @@ variancia = (S[index]/100)/(freq[index]);
 sig[index] = 100 * (sqrt((variancia/(freq[index]-1))));
 sigma = sig[index]/100;
 
-Serial.println("valors");
-//Serial.println(index);
+Serial.println("valors: vel frequencia variancia sigma");
 Serial.println(vel);
 Serial.println(frequencia);
 Serial.println(variancia);
+Serial.println(sigma);
 Serial.println("===============================================");
 
   }
