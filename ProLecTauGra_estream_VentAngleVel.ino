@@ -1,11 +1,11 @@
 
-//ProLecTauGracopia.ide
-// programa que llegeix les linies d'un fitxer de log de B&G i extreu les següents dades:
+//ProLecTauGra_estream_VentAngleVel.ide
+// programa que llegeix les linies d'un fitxer de log de B&G (NMEA) i extreu les següents dades:
 // TWS de les linies WIMWV (CAMP 3 si 2 es T)
 // TWA de les linies WIMWV (CAMP 1 si 2 es R)
 // SOG de les linies GPRMC (CAMP 7 si 2 es igual a A)
 // i les grava en en una taula, les files son el vent TWS( de 4 a 20 nusos) i les columnes son
-// l'ange de vent aparent TWA( de 30 a 330) Les dades de la taula son la mitjana la freqüencia freq, la mitjana m, la valiança S, la desv est s i l'error e 
+// l'ange de vent aparent TWA( de 30 a 330) Les dades de la taula son la freqüencia freq, la mitjana m, la valiança S, la desv est s i l'error e 
 
 /*
  Lectura d'un fitxer
@@ -31,10 +31,8 @@ int coma[15];   //posició de les comes de separació de les dades
 String Cam [15]; // camps de dades del missatge NMEA
 
 //Variables de sortida
-
 float SOG;
 float SOGant;
-float sog10;
 float TWS;
 float TWA;
 int frequencia;
@@ -54,10 +52,8 @@ float sigma;
 int freq[496]; //taula de freqüencies
 int m[496];
 //float m[496]; //taula de velocitats
-int S[496];
-//float S[496];// taula de variànciaa
-//float s[496];// taula de desviació estàndard
-int er[496];// taula de error
+int S[496]; // taula de variancia
+int sig[496];// taula de desviació estàndard
 
 
 void setup() {
@@ -98,7 +94,6 @@ if ((linia.length() > 20 ) && ( men=="GPRMC")){
      if (Cam[2] == "A"){;
       SOGant = SOG;
       SOG = Cam[7].toFloat();
-      //SOG = sog10 * 10; 
       Serial.println(SOG);
       }
   }   
@@ -221,15 +216,14 @@ vel = m[index]/100;
 S[index] = 100 * ((variancia + (delta * delta)));
 variancia = (S[index]/100)/(freq[index]);
 
-er[index] = 100 * (sqrt((variancia/(freq[index]-1))));
-error = er[index]/100;
+sig[index] = 100 * (sqrt((variancia/(freq[index]-1))));
+sigma = sig[index]/100;
 
 Serial.println("valors");
 //Serial.println(index);
 Serial.println(vel);
 Serial.println(frequencia);
 Serial.println(variancia);
-Serial.println(error);
 Serial.println("===============================================");
 
   }
@@ -252,8 +246,8 @@ void BolcaTaula(){
     // Serial.print(j);
     // Serial.print("    "); 
       for (int i=k; i < k+31; i++) { 
-         error = (er[i]/sqrt(freq[i]))/100;
-        if ( (error > 0) && ( error < 0.5)) {
+         error = (sig[i]/sqrt(freq[i]))/100;
+        if ( (error > 0) && ( error < 0.05)) {
           TWS = j;
           Serial.print( TWS );
           Serial.print(", ");
