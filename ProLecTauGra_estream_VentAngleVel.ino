@@ -51,7 +51,6 @@ float sigma;
  // variables de la taula
 int freq[496]; //taula de freqüencies
 int m[496];
-//float m[496]; //taula de velocitats
 int S[496]; // taula de variancia
 int sig[496];// taula de desviació estàndard
 
@@ -89,25 +88,25 @@ while (myFile.available()) {
 // Serial.println(men);
 
 if ((linia.length() > 20 ) && ( men=="GPRMC")){
-    Serial.println(linia);
+//    Serial.println(linia);
     separacamps();
      if (Cam[2] == "A"){;
       SOGant = SOG;
       SOG = Cam[7].toFloat();
-      Serial.println(SOG);
+ //     Serial.println(SOG);
       }
   }   
 // LECTURA DE TWS
   if ((linia.length() > 20 ) && ( men=="WIMWV")){  // separació dels camps amb les comes
-    Serial.println(linia); // imprimeix la linia
+//    Serial.println(linia); // imprimeix la linia
     separacamps();
     if (Cam[2] == "R"){;
       TWA = Cam[1].toFloat(); 
-      Serial.println(TWA);
+//      Serial.println(TWA);
       }
     if (Cam[2] == "T"){;
       TWS = Cam[3].toFloat(); 
-      Serial.println(TWS);
+//     Serial.println(TWS);
 
       // filtres de velocitat
       if ( 2 > SOG < 11 ) {
@@ -145,6 +144,7 @@ void separacamps () {
  
  // funció d'imprimir resultat vent - angle
 
+/*
 void resventangle () {
 // Imprimeix resultats per un vent - angle
 Serial.println("x");
@@ -163,6 +163,7 @@ Serial.println("x");
 Serial.println("x");
 
 }
+*/
 
 void gravaTaula() {
 
@@ -219,13 +220,14 @@ variancia = (S[index]/100)/(freq[index]);
 sig[index] = 100 * (sqrt((variancia/(freq[index]-1))));
 sigma = sig[index]/100;
 
+/*
 Serial.println("valors: vel frequencia variancia sigma");
 Serial.println(vel);
 Serial.println(frequencia);
 Serial.println(variancia);
 Serial.println(sigma);
 Serial.println("===============================================");
-
+*/
   }
   }
  }
