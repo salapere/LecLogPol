@@ -19,7 +19,7 @@ Connexions de la SD
 #include <SD.h>
 
 File myFile;
-String nomFitch="Lo180426.txt"; // el nom del fitxer sols pot tenir 8 lletres
+String nomFitch="Mo150426.txt"; // el nom del fitxer sols pot tenir 8 lletres
 
 
 //variables del missatge NMEA
@@ -112,7 +112,7 @@ if ((linia.length() > 20 ) && ( men=="GPRMC")){
       // filtres de velocitat
       if ( 2 > SOG < 11 ) {
         if ((SOG - SOGant) < 1 ){;
-         resventangle ();
+//          resventangle ();
           gravaTaula ();}
       }
       }      
