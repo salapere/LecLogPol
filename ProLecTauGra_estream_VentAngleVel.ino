@@ -166,7 +166,12 @@ Serial.println("x");
 */
 
 void gravaTaula() {
-
+Serial.print(TWS);
+Serial.print(", ");
+Serial.print(TWA);
+ Serial.print(", ");
+Serial.println(SOG);
+ 
 int psv;  // part sencera mes pròxima del vent
 float margev = 0.2 ;
 float margeInf;
@@ -187,14 +192,14 @@ margeInf = psv - margev;
 if (TWS >= 4 && TWS <= 20){
   if ((TWS <= margeSup) && (TWS >= margeInf )){
     index1 = psv - 4;
-    Serial.println("index1 -------------------");
-    Serial.println(index1);
+//    Serial.println("index1 -------------------");
+//    Serial.println(index1);
     if ((TWA > 30) && (TWA <= 330)){
      Dve = TWA/10;
      if ((TWA >= Dve * 10) && (TWA <= ((Dve + 1) * 10))){
       index2 = Dve - 2;
-      Serial.println("index2 -------------------");
-      Serial.println(index2);
+ //     Serial.println("index2 -------------------");
+ //     Serial.println(index2);
      }
     }
 index = index1 * 31 + index2;
