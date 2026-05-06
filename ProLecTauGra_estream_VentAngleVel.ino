@@ -5,7 +5,7 @@
 // TWA de les linies WIMWV (CAMP 1 si 2 es R)
 // SOG de les linies GPRMC (CAMP 7 si 2 es igual a A)
 // i les grava en en una taula, les files son el vent TWS( de 4 a 20 nusos) i les columnes son
-// l'ange de vent aparent TWA( de 30 a 330) Les dades de la taula son la freqüencia freq, la mitjana m, la valiança S, la desv est s i l'error e 
+// l'ange de vent aparent TWA( de 30 a 330) Les dades de la taula son la freqüencia freq, la mitjana m, la valiança S, la desv est sigma i l'error er 
 
 /*
  Lectura d'un fitxer
