@@ -1,4 +1,6 @@
 
+
+
 //ProLecTauGra_estream_VentAngleVel.ide
 // programa que llegeix les linies d'un fitxer de log de B&G (NMEA) i extreu les següents dades:
 // TWS de les linies WIMWV (CAMP 3 si 2 es T)
@@ -120,7 +122,9 @@ if ((linia.length() > 20 ) && ( men=="GPRMC")){
 
     // close the file:
     myFile.close();
+  
     BolcaTaula();
+   
     while(1);
 }
 
@@ -166,12 +170,6 @@ Serial.println("x");
 */
 
 void gravaTaula() {
-Serial.print(TWS);
-Serial.print(", ");
-Serial.print(TWA);
- Serial.print(", ");
-Serial.println(SOG);
- 
 int psv;  // part sencera mes pròxima del vent
 float margev = 0.2 ;
 float margeInf;
@@ -233,6 +231,16 @@ Serial.println(variancia);
 Serial.println(sigma);
 Serial.println("===============================================");
 */
+error = (sig[index]/sqrt(freq[index]))/100;
+if ( (error > 0) && ( error < 0.05)) {
+  Serial.print(psv);
+  Serial.print(", ");
+  Serial.print(Dve * 10);
+  Serial.print(", ");
+  Serial.print(vel);
+  Serial.print(", ");
+  Serial.println(error);
+ }
   }
   }
  }
@@ -245,39 +253,28 @@ void BolcaTaula(){
 //int velInt;
 
 //IMPRIMIR LA TAULA
-  Serial.println(" Llista VENT ANGLE VELOCITAT ");
-//  Serial.println(" vent    30       40       50       60       70       80       90       100      110      120      130      140      150      160      170      180      190    200     210     220     230     240     250     260     270     280     290     300     310     320     330");
+  Serial.println(" TAULA VENT-ANGLE  VELOCITAT ");
+  Serial.println(" vent    30       40       50       60       70       80       90       100      110      120      130      140      150      160      170      180      190    200     210     220     230     240     250     260     270     280     290     300     310     320     330");
   int k=0;
- for (int j=4 ; j<21 ;j++){
-    // Serial.print("   "); 
-    // Serial.print(j);
-    // Serial.print("    "); 
-      for (int i=k; i < k+31; i++) { 
-         error = (sig[i]/sqrt(freq[i]))/100;
-        if ( (error > 0) && ( error < 0.05)) {
-          TWS = j;
-          Serial.print( TWS );
-          Serial.print(", ");
-          TWA = (i-(j-4)*31)*10 + 30 ;
-          Serial.print(TWA);
-          Serial.print(", ");
-          SOG = m[i];
-          Serial.print(SOG/100);
-          // Serial.print(", ");
-          // Serial.print(error);
-          Serial.println("");
-        }
-      }
+  for (int j=4 ; j<21 ;j++){
+    Serial.print("   "); 
+    Serial.print(j);
+    Serial.print("    "); 
+      for (int i=k; i < k+31; i++) {
+        Serial.print(m[i]);
+        Serial.print(" ");
+        Serial.print(freq[i]);
+        Serial.print("  ");
+       }
       k += 31;
         Serial.println("");
-   
+        
       }
 Serial.println("\n\n");
 
 
 
 }
-
 
 
 
